@@ -2,7 +2,9 @@ package com.example.project_fcm;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -25,7 +27,7 @@ public class _ServerCommunicator {
     }
 
     public interface VolleyCallback{
-        void onSuccess(String result);
+        void onSuccess(String result, String connection);
     }
 
     public void Communicator(final VolleyCallback callback, final String request_type, final String request_data) {
@@ -34,13 +36,16 @@ public class _ServerCommunicator {
                 new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                    callback.onSuccess(response);
+                    callback.onSuccess(response, null);
             }
 
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("volley error", error.getMessage().toString());
+//                NetworkResponse networkResponse = error.networkResponse;
+//                Log.e("network response :: ", networkResponse.toString());
+//                Log.e("volley err :: ", error.toString());
+                callback.onSuccess(null, "connection_fail");
             }
         }) {
             @Override

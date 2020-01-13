@@ -1,15 +1,32 @@
 package com.example.project_fcm;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
@@ -17,29 +34,46 @@ import com.google.firebase.iid.InstanceIdResult;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static com.example.project_fcm.__GlobalVariables.URLBase;
+import static com.example.project_fcm.__GlobalVariables.version;
+
 public class MainActivity extends AppCompatActivity {
-    final static String URLBase = "http://192.168.219.117:3000";
+
+
+    ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        SearchServerIP();
+        getNotificationIntent();
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
-        DeviceInfoManager();
+
+
+
     }
 
-    private void Goto(String deviceID, String deviceToken){
-        Intent intent = new Intent(MainActivity.this, FirstSettingActivity.class);
-        intent.putExtra("deviceID", deviceID);
-        intent.putExtra("deviceToken", deviceToken);
-        startActivity(intent);
-        finish();
+
+
+    private void getNotificationIntent(){
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null && bundle.getString("token") != null) {
+            //bundle must contain all info sent in "data" field of the notificationo
+           Log.e("In bundle ::", bundle.getString("token"));
+        }else{
+            Log.e("nothing in ", "nothing");
+        }
     }
+
 
 
     private void DeviceInfoManager(){
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( MainActivity.this,  new OnSuccessListener<InstanceIdResult>() {
             @Override
             public void onSuccess(InstanceIdResult instanceIdResult) {
+
                 String mToken = instanceIdResult.getToken();
                 final String deviceID = mToken.split(":")[0].trim();
                 final String deviceToken = mToken.trim();
@@ -60,13 +94,14 @@ public class MainActivity extends AppCompatActivity {
                     _ServerCommunicator serverCommunicator = new _ServerCommunicator(MainActivity.this, url);
                     serverCommunicator.Communicator(new _ServerCommunicator.VolleyCallback() {
                         @Override
-                        public void onSuccess(String result) {
+                        public void onSuccess(String result, String connection) {
                             Log.e("connection response", result);
                             try {
                                 JSONObject resultJsonObject = new JSONObject(result);
                                 String response_result = resultJsonObject.getString("result");
                                 if(response_result.equals("success")){
-                                    Goto(deviceID, deviceToken);
+                                    OffProgressBar();
+                                    GotoRegister(deviceID, deviceToken);
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -75,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }, request_type, request_data);
                 }else{
-
                     Bundle deviceInfo = getDeviceInfo();
                     String g_deviceID = deviceInfo.getString("deviceID").trim();
                     String g_deviceToken = deviceInfo.getString("deviceToken").trim();
@@ -96,13 +130,19 @@ public class MainActivity extends AppCompatActivity {
                         _ServerCommunicator serverCommunicator = new _ServerCommunicator(MainActivity.this, url);
                         serverCommunicator.Communicator(new _ServerCommunicator.VolleyCallback() {
                             @Override
-                            public void onSuccess(String result) {
+                            public void onSuccess(String result, String connection) {
                                 Log.e("connection response", result);
                                 try {
                                     JSONObject resultJsonObject = new JSONObject(result);
                                     String response_result = resultJsonObject.getString("result");
                                     if(response_result.equals("success")){
-                                        Goto(deviceID, deviceToken);
+                                        OffProgressBar();
+                                        GotoLoung(deviceID, deviceToken);
+                                    }else if(response_result.equals("not_registered")){
+                                        OffProgressBar();
+                                        GotoRegister(deviceID, deviceToken);
+                                    }else{
+                                        // fail
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -128,13 +168,19 @@ public class MainActivity extends AppCompatActivity {
                         _ServerCommunicator serverCommunicator = new _ServerCommunicator(MainActivity.this, url);
                         serverCommunicator.Communicator(new _ServerCommunicator.VolleyCallback() {
                             @Override
-                            public void onSuccess(String result) {
+                            public void onSuccess(String result, String connection) {
                                 Log.e("connection response", result);
                                 try {
                                     JSONObject resultJsonObject = new JSONObject(result);
                                     String response_result = resultJsonObject.getString("result");
                                     if(response_result.equals("success")){
-                                        Goto(deviceID, deviceToken);
+                                        OffProgressBar();
+                                        GotoLoung(deviceID, deviceToken);
+                                    }else if(response_result.equals("not_registered")){
+                                        OffProgressBar();
+                                        GotoRegister(deviceID, deviceToken);
+                                    }else{
+                                        // fail
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -147,12 +193,32 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+    private void GotoLoung(String deviceID, String deviceToken){
+        Intent intent = new Intent(MainActivity.this, LoungeActivity.class);
+        intent.putExtra("deviceID", deviceID);
+        intent.putExtra("deviceToken", deviceToken);
+        startActivity(intent);
+        finish();
+    }
+
+    private void GotoRegister(String deviceID, String deviceToken){
+        Intent intent = new Intent(MainActivity.this, FirstSettingActivity.class);
+        intent.putExtra("type", "initial");
+        intent.putExtra("deviceID", deviceID);
+        intent.putExtra("deviceToken", deviceToken);
+        startActivity(intent);
+        finish();
+    }
+
     //Preference 읽기
     private Bundle getDeviceInfo() {
         SharedPreferences pref = androidx.preference.PreferenceManager.getDefaultSharedPreferences(this);
         if(pref.getString("deviceID", null) == null){
+//            Toast.makeText(this, "device id not exist", Toast.LENGTH_LONG).show();
             return null;
         }else{
+//            Toast.makeText(this, "device id already exist", Toast.LENGTH_LONG).show();
             Bundle temp = new Bundle();
             temp.putString("deviceID", pref.getString("deviceID", null));
             temp.putString("deviceToken", pref.getString("deviceToken", null));
@@ -169,5 +235,77 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("deviceToken", value2);
         editor.commit();
     }
+
+
+    private void OffProgressBar(){
+        progressBar.setVisibility(View.GONE);
+    }
+
+
+    private void SearchServerIP(){
+        String url = "http://www.joonandhoon.com/chat/search_server.php";
+        String request_type = "search_server";
+        String request_data = "chaegangjaji";
+        _ServerCommunicator serverCommunicator = new _ServerCommunicator(this, url);
+        serverCommunicator.Communicator(new _ServerCommunicator.VolleyCallback() {
+            @Override
+            public void onSuccess(String result, String connection) {
+                try {
+                    Log.e("SEARCH SERVER IP::", result);
+                    JSONObject jsonObject = new JSONObject(result);
+                    String type = jsonObject.getString("type");
+                    if(type.equals("normal")){
+                        URLBase = jsonObject.getString("serverIP");
+                        version = jsonObject.getString("version");
+                        ServerIP();
+                    }else{
+                        // server check
+                        String title = jsonObject.getString("title");
+                        String content = jsonObject.getString("content");
+                        version = jsonObject.getString("version");
+                        Intent intent = new Intent(MainActivity.this, ExtraActivity.class);
+                        intent.putExtra("type", "server_check");
+                        intent.putExtra("title", title);
+                        intent.putExtra("content", content);
+                        startActivity(intent);
+                        finish();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, request_type, request_data);
+    }
+    public void ServerIP(){
+        String url = URLBase + "/init";
+        String request_type = "";
+        String request_data = "";
+        _ServerCommunicator serverCommunicator = new _ServerCommunicator(this, url);
+        serverCommunicator.Communicator(new _ServerCommunicator.VolleyCallback() {
+            @Override
+            public void onSuccess(String result, String connection) {
+//                Log.e("ip :: ", connection.toString());
+                if(connection == null){
+                    Log.e("is here start", "true");
+                    DeviceInfoManager();
+                    getNotificationIntent();
+                }else{
+//                    Toast.makeText(MainActivity.this, "connection to new server", Toast.LENGTH_LONG).show();
+                    // REAL SERVER
+//                    URLBase = "http://122.46.245.107:50003";
+
+
+                    // TEST SERVER
+                    URLBase = "http://122.46.245.107:50001";
+                    DeviceInfoManager();
+
+                    getNotificationIntent();
+                }
+            }
+        }, request_type, request_data);
+    }
+
+
+
 
 }

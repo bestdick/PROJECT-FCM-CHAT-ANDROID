@@ -5,23 +5,71 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/sc_icon"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/Theme.AppCompat.NoActionBar"
+        android:fullBackupContent="false"
         android:usesCleartextTraffic="true">
-        <activity android:name=".FirstSettingActivity"></activity>
-        <activity android:name=".LoungActivity" />
-        <activity android:name=".MainActivity">
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/admob_APP_id" />
+
+        <activity android:name=".ExtraActivity"
+            android:parentActivityName=".LoungeActivity"
+            />
+        <activity android:name=".PointsActivity"
+            android:parentActivityName=".LoungeActivity"
+            />
+        <activity android:name=".SettingActivity"
+            android:parentActivityName=".LoungeActivity"
+            />
+        <activity android:name=".ReadMessageActivity"
+            android:parentActivityName=".ReadListActivity"
+            />
+        <activity android:name=".ReadListActivity"
+            android:parentActivityName=".LoungeActivity"
+            />
+        <activity android:name=".SendMessageActivity"
+            android:parentActivityName=".LoungeActivity"
+            />
+        <activity android:name=".LoungeActivity"
+
+            />
+        <activity android:name=".FirstSettingActivity"
+            />
+        <activity android:name=".MainActivity"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+
+                <action android:name="OPEN_ACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <!-- [START firebase_service] -->
+        <service
+            android:name=".LatestFirebase"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name = "com.google.firebase.messaging.default_notification_channel_id"
+            android:value="one-channel"/>
     </application>
 
 </manifest>

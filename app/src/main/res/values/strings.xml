@@ -1,3 +1,24 @@
 <resources>
-    <string name="app_name">PROJECT-FCM</string>
+    <string name="app_name">심친</string>
+    <!--   test admob -->
+    <string name="test_admob_APP_id">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="test_admob_SDK_id_banner">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="test_admob_SDK_id_reward">ca-app-pub-3940256099942544/5224354917</string>
+    <!--    test admob -->
+    <!--    real admob-->
+    <string name="admob_APP_id">ca-app-pub-9203333069147351~7738022434</string>
+    <string name="admob_SDK_id_BottomBanner">ca-app-pub-9203333069147351/7623785442</string>
+    <string name="admob_SDK_id_Reward">ca-app-pub-9203333069147351/5489249144</string>
+
+    <!--    real admob-->
+
+
+    <string name="sendMessageText">
+        * 또래에게 보내기와 같은 지역 보내기는 각각 1포인트씩 차감 됩니다.\n
+        * 이성에게 보내기는 포인트 차감이 없습니다.
+    </string>
+    <string name="point_string">광고를 보신면 3포이트를 제공합니다. 다른 결재 방법을 개발 중에 있습니다.
+        빠른 시일내에 업데이트 하도록 노력 하겠습니다.
+    </string>
+    <string name="string_copyright">All Copyright Reserved by ParkBros</string>
 </resources>

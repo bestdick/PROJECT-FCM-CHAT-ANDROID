@@ -3,4 +3,36 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="colorDarkBluish">#5096FF</color>
+    <color name="colorMediumBluish">#9CC3FE</color>
+    <color name="colorLightBluish">#AFCFFE</color>
+
+    <color name="colorDarkOrangish">#FF5733</color>
+    <color name="colorLightOrangish">#FF8233</color>
+
+
+    <color name="colorWhite">#ffffff</color>
+
+    <color name="colorMediumGray">#D2D2D2</color>
+    <color name="colorMediumLightGray">#F7F7F7</color>
+    <color name="colorDarkGray">#464646</color>
+
+
+
+    <color name="colorLightLetter">#A4A4A4</color>
+    <color name="colorLetterYellow">#FFF300</color>
+
+    <color name="colorToolbarGray">#464646</color>
+    <color name="colorBackgroundGray">#616161</color>
+
+
+
+
+
+    <color name="colorCustomOne">#B5DA9B</color>
+    <color name="colorCustomTwo">#9BD5DA</color>
+    <color name="colorCustomThree">#C09BDA</color>
+    <color name="colorCustomFour">#DAA09B</color>
+
 </resources>
