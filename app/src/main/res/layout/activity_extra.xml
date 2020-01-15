@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     tools:context=".ExtraActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -11,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:elevation="2dp"
-        android:background="@color/colorToolbarGray"
+        android:background="@color/colorWhite"
         app:layout_constraintBottom_toTopOf="@+id/scrollView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +38,7 @@
             android:layout_marginStart="8dp"
             android:text="세팅"
             android:textSize="20sp"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorCrimsonRed"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/backSpaceBtn"
@@ -45,6 +46,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 <ScrollView
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="0dp"
     app:layout_constraintBottom_toBottomOf="parent"

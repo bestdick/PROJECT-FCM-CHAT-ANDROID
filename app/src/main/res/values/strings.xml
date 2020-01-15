@@ -14,11 +14,18 @@
 
 
     <string name="sendMessageText">
-        * 또래에게 보내기와 같은 지역 보내기는 각각 1포인트씩 차감 됩니다.\n
-        * 이성에게 보내기는 포인트 차감이 없습니다.
+        * 또래에게 보내기와 같은 지역 보내기는 각각 1포인트씩 차감 됩니다.\n* 이성에게 보내기는 포인트 차감이 없습니다.
     </string>
     <string name="point_string">광고를 보신면 3포이트를 제공합니다. 다른 결재 방법을 개발 중에 있습니다.
         빠른 시일내에 업데이트 하도록 노력 하겠습니다.
     </string>
+    <string name="string_notice_1">*상대방에게서 답장이 온 후 다시 메시지를 보낼 수 있습니다.욕설 및 음란 발언은 신고의 대상이 되며 불이익을 당 할 수 있습니다.\n*3일(72시간)동안 대화가 없으면 3일(72시간) 후 자동으로 영구히 삭제 됩니다.\n*삭제된 대화는 1일(24시간) 후 자동으로 영구히 삭제됩니다.</string>
     <string name="string_copyright">All Copyright Reserved by ParkBros</string>
+
+<!--
+// 모든 UI 텍스트 칼라는 검정
+#343434 + bold
+
+
+-->
 </resources>

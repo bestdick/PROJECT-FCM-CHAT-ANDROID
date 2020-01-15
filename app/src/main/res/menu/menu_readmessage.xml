@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/menu1"
-        android:title="신고" />
-    <item
-        android:id="@+id/menu2"
-        android:title="대화삭제" />
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+        <item
+            android:id="@+id/action_settings"
+            android:icon="@drawable/ic_option"
+            android:title=""
+            app:showAsAction="always">
+                <menu>
+        <item
+            android:id="@+id/menu1"
+            android:title="신고"
+            android:icon="@drawable/ic_alert"
+            />
+        <item
+            android:id="@+id/menu2"
+            android:title="대화삭제"
+            android:icon="@drawable/ic_delete"
+            />
+                </menu>
+        </item>
 </menu>

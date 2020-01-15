@@ -11,17 +11,27 @@
     <color name="colorDarkOrangish">#FF5733</color>
     <color name="colorLightOrangish">#FF8233</color>
 
+    <color name ="colorCrimsonRed">#990000</color>
+    <color name ="colorSoftCrimsonRed">#F15555</color>
+
 
     <color name="colorWhite">#ffffff</color>
 
-    <color name="colorMediumGray">#D2D2D2</color>
-    <color name="colorMediumLightGray">#F7F7F7</color>
     <color name="colorDarkGray">#464646</color>
+    <color name="colorMediumGray">#D2D2D2</color>
+    <color name="colorLightGray">#DFDFDB</color>
+    <color name="colorLigherGray">#E7E7E7</color>
+    <color name= "colorLightestGray">#F4F4F4</color>
+
+    <color name="colorMediumLightGray">#EBEBEB</color>
+
+
 
 
 
     <color name="colorLightLetter">#A4A4A4</color>
     <color name="colorLetterYellow">#FFF300</color>
+    <color name="colorString">#343434</color>
 
     <color name="colorToolbarGray">#464646</color>
     <color name="colorBackgroundGray">#616161</color>

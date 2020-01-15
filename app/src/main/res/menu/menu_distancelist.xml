@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menu1"
-        android:title="메시지 설정" />
+        android:id="@+id/action_settings"
+        android:icon="@drawable/ic_option"
+        android:title=""
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/menu1"
+                android:title="상태 메시지"
+                android:icon="@drawable/ic_status_change"/>
+        </menu>
+    </item>
 </menu>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.project_fcm">
+    package="com.parkbros.project_fcm">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -8,44 +8,44 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
-
+<!--   app theme if need :::  Theme.AppCompat.NoActionBar-->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/sc_icon"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.NoActionBar"
+        android:theme="@style/ThemeWhiteCrumbsonRed"
         android:fullBackupContent="false"
         android:usesCleartextTraffic="true">
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/admob_APP_id" />
 
-        <activity android:name=".ExtraActivity"
-            android:parentActivityName=".LoungeActivity"
+        <activity android:name="com.parkbros.project_fcm.ExtraActivity"
+            android:parentActivityName="com.parkbros.project_fcm.LoungeActivity"
             />
-        <activity android:name=".PointsActivity"
-            android:parentActivityName=".LoungeActivity"
+        <activity android:name="com.parkbros.project_fcm.PointsActivity"
+            android:parentActivityName="com.parkbros.project_fcm.LoungeActivity"
             />
-        <activity android:name=".SettingActivity"
-            android:parentActivityName=".LoungeActivity"
+        <activity android:name="com.parkbros.project_fcm.SettingActivity"
+            android:parentActivityName="com.parkbros.project_fcm.LoungeActivity"
             />
-        <activity android:name=".ReadMessageActivity"
-            android:parentActivityName=".ReadListActivity"
+        <activity android:name="com.parkbros.project_fcm.ReadMessageActivity"
+            android:parentActivityName="com.parkbros.project_fcm.ReadListActivity"
             />
-        <activity android:name=".ReadListActivity"
-            android:parentActivityName=".LoungeActivity"
+        <activity android:name="com.parkbros.project_fcm.ReadListActivity"
+            android:parentActivityName="com.parkbros.project_fcm.LoungeActivity"
             />
-        <activity android:name=".SendMessageActivity"
-            android:parentActivityName=".LoungeActivity"
+        <activity android:name="com.parkbros.project_fcm.SendMessageActivity"
+            android:parentActivityName="com.parkbros.project_fcm.LoungeActivity"
             />
-        <activity android:name=".LoungeActivity"
+        <activity android:name="com.parkbros.project_fcm.LoungeActivity"
 
             />
-        <activity android:name=".FirstSettingActivity"
+        <activity android:name="com.parkbros.project_fcm.FirstSettingActivity"
             />
-        <activity android:name=".MainActivity"
+        <activity android:name="com.parkbros.project_fcm.MainActivity"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -60,7 +60,7 @@
 
         <!-- [START firebase_service] -->
         <service
-            android:name=".LatestFirebase"
+            android:name="com.parkbros.project_fcm.LatestFirebase"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
